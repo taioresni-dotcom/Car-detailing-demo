@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Detailing Demo | Precision & Vehicle Restoration</title>
+    <!-- Google Fonts: Syne (high-character modern display) & Plus Jakarta Sans (clean editorial sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Rich Slate-Black Color Palette */
+            --bg-void: #07080a;
+            --bg-surface: #0e1014;
+            --bg-surface-elevated: #14171d;
+            --bg-nav: rgba(8, 9, 12, 0.88);
+            
+            /* Hairline Border Accents */
+            --border-subtle: rgba(255, 255, 255, 0.07);
+            --border-highlight: rgba(255, 255, 255, 0.16);
+            --border-accent: rgba(86, 182, 194, 0.35);
+            
+            /* Text Hierarchy */
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-tertiary: #64748b;
+            
+            /* Bespoke Metallic & Subtle Ice Accents */
+            --accent-cyan: #56b6c2;
+            --accent-glow: rgba(86, 182, 194, 0.12);
+            --accent-silver: #cbd5e1;
+            --accent-gold: #e5c07b;
+            
+            /* Distinctive Modern Fonts */
+            --font-heading: 'Syne', system-ui, sans-serif;
+            --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+            
+            /* Custom Fluid Motion Curves */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-humanized: cubic-bezier(0.22, 1, 0.36, 1);
+            --transition-smooth: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            
+            --container-max: 1280px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            color-scheme: dark;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-void);
+            color: var(--text-primary);
+            line-height: 1.65;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+        }
+
+        /* Ambient Grain Texture Layer */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            color: var(--accent-cyan);
+            margin-bottom: 1.25rem;
+        }
+
+        .section-tag::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-cyan);
+        }
+
+        .section-title {
+            font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+            line-height: 1.08;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 620px;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Layout Container */
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-subtle) 20%, var(--border-subtle) 80%, transparent);
+        }
+
+        /* Portfolio Banner */
+        .demo-banner {
+            background-color: #0b0d12;
+            color: var(--text-secondary);
+            text-align: center;
+            font-size: 0.78rem;
+            padding: 0.55rem 1rem;
+            letter-spacing: 0.06em;
+            border-bottom: 1px solid var(--border-subtle);
+            position: relative;
+            z-index: 1002;
+        }
+
+        .demo-banner strong {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* Custom Craft-Feel Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.1rem 2.2rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: 2px;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background-color: var(--text-primary);
+            color: var(--bg-void);
+            border: 1px solid var(--text-primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+            color: var(--bg-void);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(86, 182, 194, 0.25);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-highlight);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            background-color: rgba(255, 255, 255, 0.02);
+            transform: translateY(-3px);
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: var(--bg-nav);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 85px;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: 0.08em;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo span:last-child {
+            color: var(--accent-cyan);
+            font-size: 0.75rem;
+            letter-spacing: 0.35em;
+            margin-top: 2px;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.75rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: var(--transition-smooth);
+            letter-spacing: 0.03em;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background-color: var(--accent-cyan);
+            transition: width 0.3s var(--ease-humanized);
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1002;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 2px;
+            background-color: var(--text-primary);
+            transition: var(--transition-smooth);
+        }
+
+        .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        .hero {
+            position: relative;
+            min-height: calc(92vh - 85px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, rgba(7, 8, 10, 0.3) 0%, rgba(7, 8, 10, 0.95) 100%),
+                        url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            padding: 6rem 0;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(0deg, var(--bg-void), transparent);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 920px;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: clamp(3.2rem, 7.5vw, 5.8rem);
+            font-weight: 800;
+            line-height: 1.02;
+            margin-bottom: 1.75rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-title span {
+            color: var(--accent-cyan);
+            display: block;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .intro-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3.5rem;
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 2.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .feature-num {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            color: var(--accent-cyan);
+            font-weight: 700;
+        }
+
+        .feature-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: 0.02em;
+        }
+
+        .services-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.75rem;
+        }
+
+        .service-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            padding: 3rem 2.25rem;
+            border-radius: 4px;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 0%;
+            background-color: var(--accent-cyan);
+            transition: height 0.4s var(--ease-humanized);
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            background-color: var(--bg-surface-elevated);
+            border-color: var(--border-highlight);
+        }
+
+        .service-card:hover::before {
+            height: 100%;
+        }
+
+        .service-num {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            color: var(--text-tertiary);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            opacity: 0.5;
+        }
+
+        .service-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.65;
+            margin-bottom: 2.5rem;
+        }
+
+        .service-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--accent-cyan);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: var(--transition-smooth);
+        }
+
+        .service-card:hover .service-link {
+            gap: 1rem;
+        }
+
+        .ba-wrapper {
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .ba-container {
+            position: relative;
+            width: 100%;
+            height: 520px;
+            overflow: hidden;
+            border-radius: 4px;
+            border: 1px solid var(--border-highlight);
+            user-select: none;
+            touch-action: pan-y;
+            background-color: #000;
+        }
+
+        .ba-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .ba-after {
+            background-image: url('https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1600&q=80');
+        }
+
+        .ba-before {
+            background-image: url('https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1600&q=80');
+            filter: contrast(0.85) brightness(0.75) sepia(0.25) blur(0.6px);
+            width: 50%;
+            border-right: 2px solid var(--accent-cyan);
+            z-index: 2;
+        }
+
+        .ba-badge {
+            position: absolute;
+            top: 1.75rem;
+            padding: 0.45rem 1.1rem;
+            background: rgba(8, 9, 12, 0.85);
+            border: 1px solid var(--border-subtle);
+            backdrop-filter: blur(10px);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            border-radius: 2px;
+            z-index: 3;
+            pointer-events: none;
+            color: var(--text-primary);
+        }
+
+        .ba-badge-before { left: 1.75rem; }
+        .ba-badge-after { right: 1.75rem; }
+
+        .ba-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 44px;
+            margin-left: -22px;
+            z-index: 4;
+            cursor: ew-resize;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ba-handle-line {
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background-color: var(--accent-cyan);
+            box-shadow: 0 0 12px var(--accent-cyan);
+        }
+
+        .ba-handle-button {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: var(--accent-cyan);
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            z-index: 5;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            position: relative;
+        }
+
+        .process-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            padding: 3rem 2.25rem;
+            border-radius: 4px;
+            position: relative;
+            transition: var(--transition-smooth);
+        }
+
+        .process-card:hover {
+            border-color: var(--border-highlight);
+            transform: translateY(-4px);
+        }
+
+        .process-step-num {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1.25rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            border: 1px solid var(--border-subtle);
+            background-color: var(--bg-surface);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s var(--ease-humanized);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.06);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(7, 8, 10, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay svg {
+            width: 32px;
+            height: 32px;
+            fill: var(--accent-cyan);
+        }
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 6, 8, 0.95);
+            backdrop-filter: blur(12px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-img {
+            max-width: 88vw;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .lightbox-close, .lightbox-prev, .lightbox-next {
+            position: absolute;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border-subtle);
+            color: #fff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover {
+            background: var(--accent-cyan);
+            color: #000;
+            border-color: var(--accent-cyan);
+        }
+
+        .lightbox-close { top: 2rem; right: 2rem; }
+        .lightbox-prev { left: 2rem; top: 50%; transform: translateY(-50%); }
+        .lightbox-next { right: 2rem; top: 50%; transform: translateY(-50%); }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .pricing-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            padding: 3.5rem 2.25rem;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: var(--transition-smooth);
+        }
+
+        .pricing-card.featured {
+            background-color: var(--bg-surface-elevated);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            padding: 4.25rem 2.25rem;
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -14px;
+            right: 2rem;
+            background-color: var(--accent-cyan);
+            color: #000;
+            font-size: 0.68rem;
+            font-weight: 800;
+            padding: 0.3rem 0.85rem;
+            border-radius: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .price-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-val {
+            font-family: var(--font-heading);
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 1.25rem;
+            line-height: 1;
+        }
+
+        .price-val span {
+            font-size: 0.95rem;
+            color: var(--text-tertiary);
+            font-weight: 400;
+            font-family: var(--font-body);
+        }
+
+        .price-features {
+            margin: 1.75rem 0 2.5rem 0;
+            flex-grow: 1;
+            list-style: none;
+        }
+
+        .price-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .price-features li::before {
+            content: "—";
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            padding: 2.75rem 2rem;
+            border-radius: 4px;
+        }
+
+        .testimonial-stars {
+            color: var(--accent-gold);
+            margin-bottom: 1.25rem;
+            font-size: 0.95rem;
+            letter-spacing: 0.1em;
+        }
+
+        .testimonial-quote {
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 1.75rem;
+            font-size: 0.96rem;
+            line-height: 1.7;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .faq-accordion {
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.75rem 0;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: var(--font-body);
+        }
+
+        .faq-question:hover {
+            color: var(--accent-cyan);
+        }
+
+        .faq-icon {
+            font-size: 1.4rem;
+            transition: transform 0.3s var(--ease-humanized);
+            color: var(--text-tertiary);
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+            color: var(--accent-cyan);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.35s ease;
+            color: var(--text-secondary);
+            font-size: 0.96rem;
+            line-height: 1.7;
+        }
+
+        .faq-item.active .faq-answer {
+            padding-bottom: 1.75rem;
+            max-height: 220px;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.55rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 1.1rem;
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 2px;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            background-color: var(--bg-surface-elevated);
+        }
+
+        .form-success {
+            display: none;
+            padding: 1.5rem;
+            background-color: rgba(86, 182, 194, 0.08);
+            border: 1px solid var(--accent-cyan);
+            color: var(--text-primary);
+            border-radius: 2px;
+            margin-top: 1.25rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            background-color: #050608;
+            padding: 5rem 0 2.5rem 0;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-subtle);
+            color: var(--text-tertiary);
+            font-size: 0.82rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        @media (max-width: 1024px) {
+            .pricing-grid, .process-steps, .testimonials-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            .pricing-card.featured {
+                padding: 3.5rem 2.25rem;
+            }
+            .intro-grid, .contact-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 82%;
+                max-width: 360px;
+                height: 100vh;
+                background-color: var(--bg-surface-elevated);
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 3.5rem;
+                transition: right 0.4s var(--ease-humanized);
+                z-index: 1001;
+                border-left: 1px solid var(--border-subtle);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .ba-container {
+                height: 380px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.8s var(--ease-humanized), transform 0.8s var(--ease-humanized);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="demo-banner">
+        <strong>PORTFOLIO DEMO:</strong> Designed & engineered for freelance web representation. Concept demonstration.
+    </div>
+
+    <header class="header">
+        <div class="container nav-container">
+            <a href="#home" class="logo">
+                <span>CAR</span>
+                <span>DETAILING</span>
+            </a>
+
+            <nav>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#comparison">Process</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <a href="#contact" class="btn btn-primary" style="padding: 0.7rem 1.4rem; font-size: 0.78rem;">BOOK A DETAIL</a>
+
+            <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <span class="section-tag reveal">Automotive Perfection</span>
+            <h1 class="hero-title reveal">Precision.<span>Beyond Clean.</span></h1>
+            <p class="hero-subtitle reveal">Professional detailing, multi-stage paint correction, and nano-ceramic protection engineered to restore your vehicle to flawless showroom standards.</p>
+            <div class="hero-actions reveal">
+                <a href="#contact" class="btn btn-primary">BOOK A DETAIL</a>
+                <a href="#services" class="btn btn-secondary">EXPLORE SERVICES</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="section">
+        <div class="container">
+            <div class="intro-grid">
+                <div class="reveal">
+                    <span class="section-tag">THE DETAILING STANDARD</span>
+                    <h2 class="section-title">Your car deserves more than a wash.</h2>
+                </div>
+                <div class="reveal">
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.75;">We combine meticulous preparation, industrial-grade compounds, and careful craftsmanship to restore depth, remove swirl defects, and seal your vehicle for long-term road defense.</p>
+                    <div class="intro-features">
+                        <div class="feature-item">
+                            <span class="feature-num">01</span>
+                            <span class="feature-title">Precision</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-num">02</span>
+                            <span class="feature-title">Protection</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-num">03</span>
+                            <span class="feature-title">Craftsmanship</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="services" class="section">
+        <div class="container">
+            <div class="services-header reveal">
+                <div>
+                    <span class="section-tag">OUR SERVICES</span>
+                    <h2 class="section-title">Built around your vehicle.</h2>
+                </div>
+                <p class="section-subtitle">Tailored vehicle restoration treatments engineered for exacting owners.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <div>
+                        <div class="service-num">01</div>
+                        <h3 class="service-title">Exterior Detailing</h3>
+                        <p class="service-desc">Multi-stage deep decontamination wash, clay bar surface levelling, and synthetic sealant finish.</p>
+                    </div>
+                    <a href="#contact" class="service-link">Inquire Service &rarr;</a>
+                </div>
+
+                <div class="service-card reveal">
+                    <div>
+                        <div class="service-num">02</div>
+                        <h3 class="service-title">Interior Restoration</h3>
+                        <p class="service-desc">Steam deep-sanitization, rich leather hydration, pile carpet extraction, and complete UV surface seal.</p>
+                    </div>
+                    <a href="#contact" class="service-link">Inquire Service &rarr;</a>
+                </div>
+
+                <div class="service-card reveal">
+                    <div>
+                        <div class="service-num">03</div>
+                        <h3 class="service-title">Paint Correction</h3>
+                        <p class="service-desc">Dual-action machine compounding designed to eliminate heavy swirl marks, scratches, and micro-haze.</p>
+                    </div>
+                    <a href="#contact" class="service-link">Inquire Service &rarr;</a>
+                </div>
+
+                <div class="service-card reveal">
+                    <div>
+                        <div class="service-num">04</div>
+                        <h3 class="service-title">Ceramic Protection</h3>
+                        <p class="service-desc">Hydrophobic nano-ceramic matrix providing 5-year glass-like depth and chemical barrier defense.</p>
+                    </div>
+                    <a href="#contact" class="service-link">Inquire Service &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="comparison" class="section">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 3.5rem;" class="reveal">
+                <span class="section-tag">SEE THE DIFFERENCE</span>
+                <h2 class="section-title">Paint surface transformation.</h2>
+                <p class="section-subtitle" style="margin-left: auto; margin-right: auto;">Drag horizontally to reveal the depth of our machine correction process.</p>
+            </div>
+
+            <div class="ba-wrapper reveal">
+                <div class="ba-container" id="baSlider">
+                    <div class="ba-image ba-after"></div>
+                    <div class="ba-image ba-before" id="baBefore"></div>
+                    <span class="ba-badge ba-badge-before">BEFORE (SWIRLED)</span>
+                    <span class="ba-badge ba-badge-after">AFTER (CORRECTED)</span>
+                    <div class="ba-handle" id="baHandle">
+                        <div class="ba-handle-line"></div>
+                        <div class="ba-handle-button">↔</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="section">
+        <div class="container">
+            <span class="section-tag reveal">THE PROCESS</span>
+            <h2 class="section-title reveal">From inspection to finish.</h2>
+            <p class="section-subtitle reveal" style="margin-bottom: 4rem;">A clear, predictable workflow designed to achieve optical clarity.</p>
+
+            <div class="process-steps">
+                <div class="process-card reveal">
+                    <div class="process-step-num">01</div>
+                    <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">Inspect & Audit</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.94rem;">Ultrasonic clearcoat depth profiling and LED swirl inspection to map defects safely.</p>
+                </div>
+
+                <div class="process-card reveal">
+                    <div class="process-step-num">02</div>
+                    <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">Correct & Refine</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.94rem;">Methodical dual-action polishing to level paint while preserving factory thickness.</p>
+                </div>
+
+                <div class="process-card reveal">
+                    <div class="process-step-num">03</div>
+                    <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">Protect & Cure</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.94rem;">Infrared-assisted ceramic matrix bonding for glass-like gloss and hydrophobic protection.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="gallery" class="section">
+        <div class="container">
+            <span class="section-tag reveal">SELECTED WORK</span>
+            <h2 class="section-title reveal">Details worth seeing.</h2>
+            <p class="section-subtitle reveal" style="margin-bottom: 3.5rem;">A closer look at macro reflections and completed ceramic projects.</p>
+
+            <div class="gallery-grid reveal">
+                <div class="gallery-item" data-src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1400&q=80">
+                    <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80" alt="Supercar paint finish">
+                    <div class="gallery-overlay"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></div>
+                </div>
+
+                <div class="gallery-item" data-src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1400&q=80">
+                    <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=600&q=80" alt="Forged Wheel Detail">
+                    <div class="gallery-overlay"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></div>
+                </div>
+
+                <div class="gallery-item" data-src="https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1400&q=80">
+                    <img src="https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=600&q=80" alt="Ceramic Gloss Reflection">
+                    <div class="gallery-overlay"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></div>
+                </div>
+
+                <div class="gallery-item" data-src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80" alt="Cockpit Leather Conditioning">
+                    <div class="gallery-overlay"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="pricing" class="section">
+        <div class="container">
+            <span class="section-tag reveal">SERVICES & PACKAGES</span>
+            <h2 class="section-title reveal">Choose your level of care.</h2>
+            <p class="section-subtitle reveal" style="margin-bottom: 4rem;">Clear baseline rates tailored to vehicle size and desired finish depth.</p>
+
+            <div class="pricing-grid">
+                <div class="pricing-card reveal">
+                    <h3 class="price-title">ESSENTIAL</h3>
+                    <div class="price-val">$120 <span>/ start</span></div>
+                    <p style="color: var(--text-tertiary); font-size: 0.85rem;">Quarterly maintenance package for pristine daily drivers.</p>
+                    <ul class="price-features">
+                        <li>Multi-stage hand wash</li>
+                        <li>Wheel barrel & caliper clean</li>
+                        <li>Interior vacuum & surface wipe</li>
+                        <li>Synthetic sealant protection</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary">Select Package</a>
+                </div>
+
+                <div class="pricing-card featured reveal">
+                    <span class="pricing-badge">MOST POPULAR</span>
+                    <h3 class="price-title">CORRECTION</h3>
+                    <div class="price-val">$280 <span>/ start</span></div>
+                    <p style="color: var(--text-tertiary); font-size: 0.85rem;">Eliminates light swirl defects and brings out paint clarity.</p>
+                    <ul class="price-features">
+                        <li>Full Essential package steps</li>
+                        <li>Iron decontamination & clay bar</li>
+                        <li>Single-stage machine polish</li>
+                        <li>Deep interior leather hydration</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Select Package</a>
+                </div>
+
+                <div class="pricing-card reveal">
+                    <h3 class="price-title">SIGNATURE</h3>
+                    <div class="price-val">$450 <span>/ start</span></div>
+                    <p style="color: var(--text-tertiary); font-size: 0.85rem;">Concourse restoration with long-term ceramic defense.</p>
+                    <ul class="price-features">
+                        <li>Multi-stage paint correction</li>
+                        <li>3-Year Professional Ceramic Coating</li>
+                        <li>Interior steam & carpet extraction</li>
+                        <li>Engine bay detailing & dressing</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary">Select Package</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="section">
+        <div class="container">
+            <span class="section-tag reveal">REVIEWS</span>
+            <h2 class="section-title reveal" style="margin-bottom: 3.5rem;">Client experiences.</h2>
+
+            <div class="testimonials-grid reveal">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-quote">"Attention to detail was on another level. The paint clarity looked far better than when I picked the car up from the dealer floor."</p>
+                    <p class="testimonial-author">— Daniel R. (Porsche GT3)</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-quote">"The entire consultation was straightforward and professional. The ceramic coating finish makes maintenance washes effortless."</p>
+                    <p class="testimonial-author">— Marcus T. (BMW M4)</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-quote">"Completely removed years of swirl marks on my black metallic sedan. The depth in direct sunlight is remarkable."</p>
+                    <p class="testimonial-author">— Alex M. (Audi RS6)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="section">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 3.5rem;" class="reveal">
+                <span class="section-tag">QUESTIONS</span>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+            </div>
+
+            <div class="faq-accordion reveal">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How long does a detailing service take?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Essential maintenance treatments typically require 3 to 4 hours. Multi-stage Paint Correction and Ceramic Coating packages require 1 to 2 days for proper machine work and coating curing.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Do you work on all vehicle types?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, we service daily commuters, luxury sedans, sports vehicles, SUVs, and vintage collector automobiles.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What is paint correction?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Paint correction is the skilled process of leveling clearcoat paint layers with specialized compounds to permanently eliminate swirl marks, haze, and fine scratches rather than filling them temporarily.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How long does ceramic coating last?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Depending on the coating selected, our ceramic formulas provide 2-year to 5-year protective durability against chemical etching, UV damage, and wash swirl induction.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="contact-container">
+                <div class="reveal">
+                    <span class="section-tag">BOOK A DETAIL</span>
+                    <h2 class="section-title">Ready to bring your car back to its best?</h2>
+                    <p class="section-subtitle">Share your vehicle details and desired service level below to receive a personalized quote.</p>
+                </div>
+
+                <div class="reveal">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label class="form-label" for="name">Full Name</label>
+                            <input type="text" id="name" class="form-input" placeholder="e.g. John Doe" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email Address</label>
+                            <input type="email" id="email" class="form-input" placeholder="e.g. john@example.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="vehicle">Vehicle (Year, Make, Model)</label>
+                            <input type="text" id="vehicle" class="form-input" placeholder="e.g. 2023 Porsche 911" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="service">Desired Service</label>
+                            <select id="service" class="form-select" required>
+                                <option value="">Select a package</option>
+                                <option value="essential">Essential Detail ($120+)</option>
+                                <option value="correction">Paint Correction ($280+)</option>
+                                <option value="signature">Signature Ceramic ($450+)</option>
+                                <option value="custom">Custom Service Request</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="message">Notes / Specific Paint Concerns</label>
+                            <textarea id="message" class="form-textarea" rows="4" placeholder="Mention swirl depth, interior leather status, or custom requests..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">REQUEST A QUOTE</button>
+
+                        <div id="formSuccess" class="form-success">
+                            ✔ Thanks — your request has been logged. This is a portfolio website demo.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="#home" class="logo" style="margin-bottom: 1.25rem;">
+                        <span>CAR</span>
+                        <span>DETAILING</span>
+                    </a>
+                    <p style="color: var(--text-secondary); font-size: 0.88rem; max-width: 320px; line-height: 1.6;">Precision. Protection. Craftsmanship. Elevating vehicle appearance through methodical surface polish and ceramic science.</p>
+                </div>
+
+                <div>
+                    <h4 style="margin-bottom: 1rem; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-primary);">Navigation</h4>
+                    <ul style="display: flex; flex-direction: column; gap: 0.6rem; color: var(--text-secondary); font-size: 0.88rem; list-style: none;">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="margin-bottom: 1rem; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-primary);">Demo Information</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6;">© 2026 Car Detailing Demo.<br>Personal portfolio concept — not a real business entity.</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>Designed & Engineered for Freelance Frontend Demonstration</span>
+                <span>Vanilla JS • HTML5 • CSS3</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">&times;</button>
+        <button class="lightbox-prev" id="lightboxPrev">&larr;</button>
+        <button class="lightbox-next" id="lightboxNext">&rarr;</button>
+        <img src="" alt="Enlarged view" class="lightbox-img" id="lightboxImg">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            /* 1. Mobile Menu Navigation */
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+
+            /* 2. Before/After Interactive Comparison Slider */
+            const slider = document.getElementById('baSlider');
+            const beforeImage = document.getElementById('baBefore');
+            const handle = document.getElementById('baHandle');
+            let isDragging = false;
+
+            const updateSlider = (clientX) => {
+                const rect = slider.getBoundingClientRect();
+                let x = clientX - rect.left;
+                if (x < 0) x = 0;
+                if (x > rect.width) x = rect.width;
+
+                const percentage = (x / rect.width) * 100;
+                beforeImage.style.width = `${percentage}%`;
+                handle.style.left = `${percentage}%`;
+            };
+
+            slider.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                updateSlider(e.clientX);
+            });
+
+            window.addEventListener('mouseup', () => { isDragging = false; });
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                updateSlider(e.clientX);
+            });
+
+            slider.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                updateSlider(e.touches[0].clientX);
+            });
+
+            window.addEventListener('touchend', () => { isDragging = false; });
+            window.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                updateSlider(e.touches[0].clientX);
+            });
+
+            /* 3. FAQ Accordion Single-Item Open Logic */
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const questionBtn = item.querySelector('.faq-question');
+                questionBtn.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    faqItems.forEach(i => i.classList.remove('active'));
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+
+            /* 4. Gallery Lightbox Modal */
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxClose = document.getElementById('lightboxClose');
+            const lightboxPrev = document.getElementById('lightboxPrev');
+            const lightboxNext = document.getElementById('lightboxNext');
+
+            let gallerySources = [];
+            let currentIndex = 0;
+
+            galleryItems.forEach((item, index) => {
+                const src = item.getAttribute('data-src');
+                gallerySources.push(src);
+
+                item.addEventListener('click', () => {
+                    currentIndex = index;
+                    openLightbox(src);
+                });
+            });
+
+            function openLightbox(src) {
+                lightboxImg.src = src;
+                lightbox.classList.add('active');
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+            }
+
+            lightboxClose.addEventListener('click', closeLightbox);
+
+            lightboxPrev.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + gallerySources.length) % gallerySources.length;
+                lightboxImg.src = gallerySources[currentIndex];
+            });
+
+            lightboxNext.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % gallerySources.length;
+                lightboxImg.src = gallerySources[currentIndex];
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (!lightbox.classList.contains('active')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') lightboxPrev.click();
+                if (e.key === 'ArrowRight') lightboxNext.click();
+            });
+
+            /* 5. Contact Form Validation */
+            const contactForm = document.getElementById('contactForm');
+            const formSuccess = document.getElementById('formSuccess');
+
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const vehicle = document.getElementById('vehicle').value.trim();
+
+                if (name && email && vehicle) {
+                    formSuccess.style.display = 'block';
+                    contactForm.reset();
+                    setTimeout(() => {
+                        formSuccess.style.display = 'none';
+                    }, 5000);
+                }
+            });
+
+            /* 6. Intersection Observer Scroll Reveal */
+            const revealElements = document.querySelectorAll('.reveal');
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.12
+            });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+        });
+    </script>
+</body>
+</html>
